@@ -14,8 +14,9 @@
     (with-temp-buffer
       (call-process notmuch-command nil t nil "show" "--format=raw" id)
       (goto-char 1)
-      (re-search-forward regex nil t)
-      (match-string 1))))
+      (if (re-search-forward regex nil t)
+          (match-string 1)
+        nil))))
 
 (defun unsubscribe-get-mail-url ()
   "Return url object of the mail-to url for unsubscription."
